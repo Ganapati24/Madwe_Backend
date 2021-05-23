@@ -18,6 +18,9 @@ public class User {
     private String relnStatus;
     private Date dateOfBirth;
     private String role;
+    private String phone;
+
+
 
     public String getId() {
         return id;
@@ -91,4 +94,11 @@ public class User {
         this.role = role;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }
