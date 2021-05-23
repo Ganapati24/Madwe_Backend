@@ -38,6 +38,7 @@ public class UserService implements UserDetailsService {
 
         public void saveUser(User user) {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            user.setId(user.getPhone()+":"+user.getEmail());
             //user.setEnabled(true);
             //Role userRole = roleRepository.findByRole("ADMIN");
             //user.setRoles(new HashSet<>(Arrays.asList(userRole)));
@@ -45,9 +46,9 @@ public class UserService implements UserDetailsService {
         }
 
         @Override
-        public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-            User user = userRepository.findByEmail(email);
+            User user = userRepository.findByEmailOrPhone(username, username);
             if(user != null) {
                 List<GrantedAuthority> authorities = getUserAuthority(user.getRole());
                 return buildUserForAuthentication(user, authorities);
